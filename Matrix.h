@@ -68,8 +68,8 @@ for (byte x = 0; x < n_pin_x; x++) {
                      pinMode     (pin_x[x], OUTPUT);
                      digitalWrite(pin_x[x], !pull );
 for (byte y = 0; y < n_pin_y; y++) {
-if (mode == 0  ) {if (pull == 0) pinMode(pin[i], INPUT);
-	              else           pinMode(pin[i], INPUT_PULLUP  );}
+if (mode == 0  ) {if (pull == 0) pinMode(pin_y[y], INPUT);
+	              else           pinMode(pin_y[y], INPUT_PULLUP  );}
 if (pull     != N_z) state_hard(!digitalRead(pin_y[y]));
 else                 state_hard( digitalRead(pin_y[y]));
 if (   n_KRO != 0 && state_hard() == 1) {
