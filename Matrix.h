@@ -43,7 +43,7 @@ Click *matrix; // массив экземпляров класса Click
 byte n_pin_() {return (n_pin_x * n_pin_y);} // количество кнопок
 
 void detach_matrix() {if (n_pin_() != 0) {delete [] matrix;
-for (byte y = 0; y < n_pin_y; y++) digitalWrite(pin_y[y], LOW );}}
+for (byte y = 0; y < n_pin_y; y++) pinMode(pin_y[y], INPUT);}}
 
 void create_matrix() {if (n_pin_() != 0) matrix = new Click[n_pin_()];}
 
@@ -65,11 +65,11 @@ if (mode == 0 || timestamp_system_ != timestamp_system()) {
 timestamp_system(timestamp_system_);
 boolean                                 flag_KRO = 0;
 for (byte x = 0; x < n_pin_x; x++) {
-                     digitalWrite(pin_x[x], !pull );
                      pinMode     (pin_x[x], OUTPUT);
+                     digitalWrite(pin_x[x], !pull );
 for (byte y = 0; y < n_pin_y; y++) {
-if (mode     == 0)  {pinMode     (pin_y[y], INPUT );
-                     digitalWrite(pin_y[y],  pull );}
+if (mode == 0  ) {if (pull == 0) pinMode(pin[i], INPUT);
+	              else           pinMode(pin[i], INPUT_PULLUP  );}
 if (pull     != N_z) state_hard(!digitalRead(pin_y[y]));
 else                 state_hard( digitalRead(pin_y[y]));
 if (   n_KRO != 0 && state_hard() == 1) {
@@ -78,7 +78,6 @@ if (flag_KRO == 1)   state_hard(matrix[y * n_pin_x + x].state_button());}
 if (mode     == 1)              matrix[y * n_pin_x + x].read (in_Click);
 else                            matrix[y * n_pin_x + x].reset(in_Click);}
                      pinMode     (pin_x[x], INPUT );
-                     digitalWrite(pin_x[x], LOW   );
 }}
 else {for (byte i = 0; i < n_pin_(); i++) matrix[i].reset_events();}
 }}

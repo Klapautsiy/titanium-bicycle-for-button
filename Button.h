@@ -35,7 +35,7 @@ void create_pin() {if (n_pin_ != 0)            pin = new byte[n_pin_]   ; }
 Click *button; // массив экземпляров класса Click
 
 void detach_button() {if (n_pin_ != 0) {delete [] button;
-for (byte i = 0; i < n_pin_; i++) digitalWrite(pin[i], LOW);}}
+for (byte i = 0; i < n_pin_; i++) pinMode(pin[i], INPUT);}}
 
 void create_button() {if (n_pin_ != 0) button = new Click[n_pin_];}
 
@@ -47,8 +47,8 @@ unsigned long timestamp_new = millis();
 if (mode == 0 || timestamp_new != timestamp_system()) {
 timestamp_system(timestamp_new);
 for (byte i = 0; i < n_pin_; i++) {
-if (mode == 0  ) {pinMode     (pin[i], INPUT);
-                  digitalWrite(pin[i],  pull);}
+if (mode == 0  ) {if (pull == 0) pinMode(pin[i], INPUT);
+	              else           pinMode(pin[i], INPUT_PULLUP  );}
 if (pull != N_z)  state_hard(!digitalRead(pin[i]));
 else              state_hard( digitalRead(pin[i]));
 if (mode == 1  )  button[i].read (in_Click);
